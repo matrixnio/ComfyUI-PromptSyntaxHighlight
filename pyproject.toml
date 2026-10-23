@@ -1,0 +1,33 @@
+[project]
+name = "comfyui-prompt-syntax-highlight"
+description = "Highlights [Shot 1] / <d></d> / (s1) markers inside any ComfyUI prompt text box. Pure front-end, no nodes, no dependencies."
+version = "1.0.0"
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["comfyui", "prompt", "syntax-highlight", "ui", "frontend"]
+authors = [{ name = "matrixnio" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Repository = "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight"
+Issues = "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight/issues"
+
+[tool.comfy]
+PublisherId = "REPLACE_WITH_YOUR_PUBLISHER_ID"
+DisplayName = "Prompt Syntax Highlight"
+Icon = ""
+requires-comfyui = ">=0.3.0"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+# JavaScript-only extension: there is no Python package to build.
+packages = []
