@@ -1,5 +1,9 @@
 # ComfyUI Prompt Syntax Highlight
 
+> **Registry 安装**：`comfy node install comfyui-prompt-syntax-highlight`
+> 或在 ComfyUI Manager 里搜 **Prompt Syntax Highlight**。
+> Registry 页面：<https://registry.comfy.org/nodes/comfyui-prompt-syntax-highlight>
+
 **提示词结构高亮** — 在 ComfyUI 的任何提示词输入框里，把 `[Shot 1]`、`<d>...</d>`、`(s1)` 这类结构标记染成绿色。
 
 可编辑的 STRING 多行输入框、只读的 Show Text 显示框都支持；第三方文本节点同样生效。

@@ -3,6 +3,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![ComfyUI](https://img.shields.io/badge/ComfyUI-%E2%89%A50.3.0-blue)](https://github.com/comfyanonymous/ComfyUI)
 
+> **Install from the Registry:** `comfy node install comfyui-prompt-syntax-highlight`
+> — or search **Prompt Syntax Highlight** in ComfyUI Manager.
+> Registry page: <https://registry.comfy.org/nodes/comfyui-prompt-syntax-highlight>
+
 Colour your prompt structure. This extension highlights `[Shot 1]`, `<d>...</d>`, `(s1)` and any
 marker you define, **inside any prompt text box in ComfyUI** — the editable multiline STRING widget
 as well as read-only *Show Text* boxes.
