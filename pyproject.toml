@@ -19,7 +19,7 @@ Repository = "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight"
 Issues = "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight/issues"
 
 [tool.comfy]
-PublisherId = "REPLACE_WITH_YOUR_PUBLISHER_ID"
+PublisherId = "matrixnio"
 DisplayName = "Prompt Syntax Highlight"
 Icon = ""
 requires-comfyui = ">=0.3.0"
