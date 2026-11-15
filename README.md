@@ -29,6 +29,8 @@ sections visible at a glance while you type, without changing what actually reac
   nodes get highlighted too.
 - **Never touches notes.** Note / MarkdownNote are tiptap rich-text widgets in ComfyUI >= 1.58; the
   shadow `<textarea>` they keep at `opacity: 0` is skipped, so the rendered note is never overpainted.
+- **Selecting text falls back to the native renderer.** While a selection is active the mirror is
+  hidden, so `Ctrl+A` shows one clean highlight instead of two copies of the same text.
 - **No nodes, no dependencies, no Python.** Delete the folder and every trace is gone.
 
 ## Features
