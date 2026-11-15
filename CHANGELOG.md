@@ -4,6 +4,31 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2026-11-15
+
+Notes stopped being prompts.
+
+### Fixed
+
+- **MarkdownNote / Note were taken over.** ComfyUI 1.58 renders them as a tiptap rich-text
+  editor: `.comfy-markdown > ( .tiptap.ProseMirror + a shadow <textarea> )`, and the textarea
+  only stores the raw value at `opacity: 0`. The extension mirrored that textarea, so the
+  *source* markdown (`# Heading`, `- [link](url)`, ...) was painted at `z-index: 2` straight
+  over the rendered document — one wall of overlapping text. Anything inside
+  `.comfy-markdown` / `.widget-markdown` / `.tiptap` / `.ProseMirror` is now skipped, both in
+  `usable()` and in `attach()`.
+- Hidden textareas are no longer claimed. `clientHeight === 0` used to fall through the
+  "unknown size, take it anyway" branch; `getClientRects().length === 0` now rejects
+  anything that is not in the render tree (collapsed nodes, `v-show`-hidden editors).
+- Leftover mirrors are reaped. Every `scanTargets()` pass removes any `.phl-mirror` that no
+  longer belongs to a tracked textarea, so a `<pre>` can never stay floating above a node
+  after its source is gone.
+
+### Note
+
+`user/default/user.css` is no longer loaded by the 1.58 frontend — any earlier styling fix
+placed there is dead code. This extension injects its own `<style>` block instead.
+
 ## [1.2.1] - 2026-11-15
 
 Font-metric alignment, plus the node-type skip list accumulated since 1.0.0

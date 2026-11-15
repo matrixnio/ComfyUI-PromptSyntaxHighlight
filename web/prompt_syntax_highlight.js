@@ -47,7 +47,7 @@ import { app } from "../../../scripts/app.js";
  * condition that hides the mirror restores the native text in the same call.
  */
 
-const VERSION = "1.2.1";
+const VERSION = "1.2.2";
 
 /** Order is priority: later rules overwrite overlapping earlier ones. */
 const RULES = [
@@ -282,6 +282,7 @@ function hostOf(ta) {
 }
 
 function attach(ta) {
+  if (ta.closest(NOTE_SEL)) return;
   const host = hostOf(ta);
   if (!host) return;
 
@@ -469,9 +470,20 @@ function startLoop() {
 }
 
 /** Skip textareas that clearly are not prompts (search boxes, disabled, single line). */
+const NOTE_SEL = ".comfy-markdown, .widget-markdown, .tiptap, .ProseMirror";
+
 function usable(ta) {
   if (!ta || !ta.isConnected) return false;
   if (ta.disabled) return false;
+  // 1.58 renders Note / MarkdownNote as a tiptap rich-text editor:
+  //     .comfy-markdown > ( .tiptap.ProseMirror + a shadow <textarea> )
+  // ComfyUI keeps that textarea at opacity 0 — it only stores the raw value.
+  // Mirroring it paints the *source* markdown straight over the rendered
+  // document, which is exactly the "wall of overlapping text" symptom.
+  if (ta.closest(NOTE_SEL)) return false;
+  // Not in the render tree (collapsed node, v-show hidden editor): leave it be.
+  // This used to slip through the "unknown size, take it anyway" branch below.
+  if (!ta.getClientRects().length) return false;
   // Never hijack documentation / note widgets — their textareas are not prompts.
   const nt = ownerNodeType(ta);
   if (nt && SKIP_TYPES.has(nt.toLowerCase())) return false;
@@ -524,6 +536,18 @@ function scanTargets() {
   for (const [ta, st] of Array.from(tracked)) {
     if (!ta.isConnected) detach(ta, st);
   }
+
+  // Drop mirrors that no longer belong to a tracked textarea. Note widgets were
+  // taken over before the .comfy-markdown guard existed; the leftover <pre>
+  // (position:absolute, z-index:2) kept floating above the rendered note.
+  for (const m of document.querySelectorAll(".phl-mirror")) {
+    let owned = false;
+    for (const st of tracked.values()) {
+      if (st.mirror === m) { owned = true; break; }
+    }
+    if (!owned) m.remove();
+  }
+
   if (tracked.size) report();
   startLoop();
 
