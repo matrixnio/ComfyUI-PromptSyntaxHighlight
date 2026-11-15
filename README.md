@@ -27,6 +27,8 @@ sections visible at a glance while you type, without changing what actually reac
   byte-for-byte what you typed.
 - **Works on other people's nodes.** It hooks multi-line `textarea` elements, so third-party text
   nodes get highlighted too.
+- **Never touches notes.** Note / MarkdownNote are tiptap rich-text widgets in ComfyUI >= 1.58; the
+  shadow `<textarea>` they keep at `opacity: 0` is skipped, so the rendered note is never overpainted.
 - **No nodes, no dependencies, no Python.** Delete the folder and every trace is gone.
 
 ## Features
@@ -139,7 +141,7 @@ curl http://127.0.0.1:8188/prompt_syntax_highlight/status
 ```
 
 ```json
-{"version": "1.2.1", "hits": 6, "targets": 4, "painted": 4, "last_error": ""}
+{"version": "1.2.2", "hits": 6, "targets": 4, "painted": 4, "last_error": ""}
 ```
 
 | Symptom | Meaning | Fix |

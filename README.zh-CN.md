@@ -23,6 +23,8 @@
 
 - **纯视觉层**：只覆盖显示，编码用的仍是原文，一个字都不改。
 - **不挑节点**：钩的是多行 `textarea`，别人家的文本节点也能高亮。
+- **不碰注释节点**：Note / MarkdownNote 在 ComfyUI ≥ 1.58 是 tiptap 富文本，它那个只存原值、
+  `opacity: 0` 的影子 textarea 会被跳过，渲染好的笔记不会被原始 Markdown 覆盖。
 - **零依赖、零节点、零 Python 逻辑**：删掉目录即彻底回滚。
 
 ## 功能
@@ -129,7 +131,7 @@ curl http://127.0.0.1:8188/prompt_syntax_highlight/status
 ```
 
 ```json
-{"version": "1.2.1", "hits": 6, "targets": 4, "painted": 4, "last_error": ""}
+{"version": "1.2.2", "hits": 6, "targets": 4, "painted": 4, "last_error": ""}
 ```
 
 | 现象 | 含义 | 处理 |

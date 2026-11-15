@@ -20,3 +20,7 @@ desktop.ini
 # Logs and local scratch
 *.log
 *.tmp
+
+# Local backups of the runtime bundle (never publish these)
+*.bak_*
+*.unused_*
