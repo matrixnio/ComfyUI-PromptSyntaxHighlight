@@ -63,7 +63,9 @@ pip install comfy-cli
 comfy --skip-prompt node publish
 ```
 
-发布成功后，ComfyUI Manager 搜 `Prompt Syntax Highlight` 就能装到。
+发布成功后，节点在 Registry 可以用 `comfy node registry-install` 直接装。
+
+**但 ComfyUI Manager 的搜索列表是另一条通道**，发布 Registry 不会自动进去，见第 6 节。
 
 ## 发布前自检
 
@@ -73,3 +75,43 @@ comfy --skip-prompt node publish
 - [ ] `curl http://127.0.0.1:8188/prompt_syntax_highlight/status` 返回 `hits > 0`
 - [ ] `pyproject.toml` 里 `version` 与 `__init__.py` 的 `__version__`、`CHANGELOG.md` 三者一致
 - [ ] 仓库里没有 `__pycache__`、没有 `.pyc`、没有个人路径
+
+## 6. 让 ComfyUI-Manager 搜得到（与 Registry 是两条独立通道）
+
+Registry 发布**不会**自动进 ComfyUI-Manager 的搜索列表。那份列表是
+[ltdrdata/ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager) 里的
+`custom-node-list.json`，靠 PR 手动收录。
+
+> 2026-11 实测：该文件 6048 个条目里没有本节点 —— 发布成功半个月后仍然搜不到。
+
+在 `custom-node-list.json` 的 `custom_nodes` 数组里按作者名顺序插入一条：
+
+```json
+{
+    "author": "matrixnio",
+    "title": "Prompt Syntax Highlight",
+    "reference": "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight",
+    "files": [
+        "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight"
+    ],
+    "install_type": "git-clone",
+    "description": "Highlights [Shot 1] / <d></d> / (s1) markers inside any ComfyUI prompt text box. Pure front-end, no nodes, no dependencies."
+}
+```
+
+fork → 插入 → 提 PR。`install_type: "git-clone"` 意味着 Manager 里点 Update 执行的是
+`git pull`，**永远拉 main 的最新提交**，不受 Registry 版本状态影响。
+
+## 两条通道的差别
+
+| 通道 | 数据源 | 安装/更新动作 | 滞后点 |
+|---|---|---|---|
+| Registry | `api.comfy.org` | 下载该版本的 node.zip | 新版本要等自动安全扫描从 `Pending` 转 `Active`（几分钟到几小时） |
+| Manager 列表 | ltdrdata 的 `custom-node-list.json` | `git clone` / `git pull` | 只滞后于 PR 收录；收录之后永远跟 main |
+
+**在列表收录之前**，别人只有两条路：
+
+- Manager → **Install via Git URL**，填仓库地址
+- `comfy node registry-install comfyui-prompt-syntax-highlight`（直接读 `/install`，跳过列表缓存）
+
+两条都会拿到当前 main 的最新代码（即 1.2.2）。
