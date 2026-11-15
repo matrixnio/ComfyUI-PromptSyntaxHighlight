@@ -4,6 +4,29 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-11-15
+
+Font-metric alignment, plus the node-type skip list accumulated since 1.0.0
+(1.1.x / 1.2.x were never published separately, so they ship here).
+
+### Added
+
+- `SKIP_TYPES` and `ownerNodeType()`: Note / MarkdownNote / ShowText / label-style widgets are
+  never taken over. They already carry their own rendered overlay, and a second mirror on top
+  produced doubled text. The node type is resolved through `[data-node-id]` **and** the legacy
+  `.comfy-node` root, so both old and new frontends work.
+
+### Fixed
+
+- `line-height: normal` made the mirror and the textarea disagree line by line: each resolves
+  `normal` against its own font, and a CJK fallback is enough to shift the baselines. Now falls
+  back to `font-size × 1.5` in px whenever no numeric value is available.
+- Font metrics were cached by comparing `fontFamily` strings only, so a late-loading webfont
+  never invalidated the cache — the textarea re-rendered, the mirror did not. `document.fonts`
+  `loadingdone` / `loadingerror` / `ready` now clear the cache.
+- `white-space`, `text-rendering`, `font-kerning` and `font-variant-numeric` are synchronised
+  too: without them CJK line breaking and ligatures can wrap differently from the textarea.
+
 ## [1.0.0] - 2026-10-23
 
 First public release.

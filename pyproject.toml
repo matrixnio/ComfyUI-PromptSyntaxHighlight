@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-prompt-syntax-highlight"
 description = "Highlights [Shot 1] / <d></d> / (s1) markers inside any ComfyUI prompt text box. Pure front-end, no nodes, no dependencies."
-version = "1.0.0"
+version = "1.2.1"
 license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.9"

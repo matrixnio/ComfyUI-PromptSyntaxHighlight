@@ -129,7 +129,7 @@ curl http://127.0.0.1:8188/prompt_syntax_highlight/status
 ```
 
 ```json
-{"version": "1.0.0", "hits": 6, "targets": 4, "painted": 4, "last_error": ""}
+{"version": "1.2.1", "hits": 6, "targets": 4, "painted": 4, "last_error": ""}
 ```
 
 | 现象 | 含义 | 处理 |
