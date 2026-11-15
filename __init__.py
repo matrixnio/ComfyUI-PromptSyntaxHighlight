@@ -27,7 +27,7 @@ try:  # ComfyUI >= 0.2
 except Exception:  # pragma: no cover - not running inside ComfyUI
     PromptServer = None
 
-__version__ = "1.2.2"
+__version__ = "1.2.3"
 
 WEB_DIRECTORY = "./web"
 

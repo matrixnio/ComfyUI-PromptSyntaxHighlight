@@ -4,6 +4,22 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.3] - 2026-11-16
+
+Selection no longer doubles up.
+
+### Fixed
+
+- **Ctrl+A ghosted the text.** The mirror paints the highlighted copy above the
+  textarea; on a non-empty selection the textarea's own `::selection` colours that
+  same text white, so two layers ended up at the same coordinates. `frame()` now
+  records `selecting` per textarea and `syncBox()` bails out to `hideMirror()`
+  before anything else, so only the native selection is drawn. Collapse the
+  selection and the highlight comes back on the next frame — no listeners, no
+  state to clean up.
+- The `paint()`-gated variant of this fix never fired: `paint()` returns early
+  while `st.text === ta.value`, which is exactly the case when you press Ctrl+A.
+
 ## [1.2.2] - 2026-11-15
 
 Notes stopped being prompts.

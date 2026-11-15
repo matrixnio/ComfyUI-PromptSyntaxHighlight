@@ -47,7 +47,7 @@ import { app } from "../../../scripts/app.js";
  * condition that hides the mirror restores the native text in the same call.
  */
 
-const VERSION = "1.2.2";
+const VERSION = "1.2.3";
 
 /** Order is priority: later rules overwrite overlapping earlier ones. */
 const RULES = [
@@ -346,6 +346,12 @@ function paint(ta, st) {
 }
 
 function syncBox(ta, st, full) {
+  // 选中态交给原生 textarea 自己画（选区底色 + 白字），镜像层必须收起来。
+  // 放在最前面：scroll / input 这些旁路也会走到这里，不能让它们把镜像又打开。
+  if (st.selecting) {
+    hideMirror(ta, st);
+    return;
+  }
   // The widget was detached from the DOM, or the node got collapsed.
   const host = hostOf(ta);
   if (!host || ta.offsetParent === null || ta.offsetWidth < 4 || ta.offsetHeight < 4) {
@@ -459,6 +465,11 @@ function frame() {
       continue;
     }
     if (st.composing) continue;
+    // 有选区时只让原生层渲染：镜像层画着彩色高亮，textarea 的 ::selection 又把
+    // 同一段文字涂成白字，两层叠在同一坐标上 —— 这就是「Ctrl+A 全选后重影」。
+    // 每帧重算一次，选区一塌陷下一帧就自动恢复高亮，不需要额外的监听器。
+    st.selecting = ta === document.activeElement &&
+                   ta.selectionEnd > ta.selectionStart;
     paint(ta, st);
     syncBox(ta, st, tick % 15 === 0);
   }
