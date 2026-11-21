@@ -3,7 +3,7 @@ name = "comfyui-prompt-syntax-highlight"
 description = "Highlights [Shot 1] / <d></d> / (s1) markers inside any ComfyUI prompt text box. Pure front-end, no nodes, no dependencies."
 # 想要中文描述可以直接换成中文，值是自由文本，注册表支持 UTF-8：
 # description = "在任意 ComfyUI 提示词输入框内高亮 [Shot 1] / <d></d> / (s1) 标记。纯前端，无节点，无依赖。"
-version = "1.2.4"
+version = "1.2.5"
 license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.9"
