@@ -1,33 +1,33 @@
-[project]
+[项目]
 name = "comfyui-prompt-syntax-highlight"
-description = "Highlights [Shot 1] / <d></d> / (s1) markers inside any ComfyUI prompt text box. Pure front-end, no nodes, no dependencies."
-version = "1.2.3"
-license = { text = "MIT" }
+描述"高亮显示 [镜头 1] / 
+版本 = "1.2.4"
+许可证 = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = []
-keywords = ["comfyui", "prompt", "syntax-highlight", "ui", "frontend"]
-authors = [{ name = "matrixnio" }]
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+依赖项 = []
+关键词 = ["comfyui", "提示词", "语法高亮", "用户界面", "前端"]
+作者[{ name = "matrixnio" }]
+分类器 = [
+    "编程语言 :: Python :: 3",
+    "许可证 :: OSI 批准 :: MIT 许可证",
+    "操作系统 :: OS 独立",
 ]
 
 [project.urls]
-Repository = "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight"
-Issues = "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight/issues"
+仓库 = "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight"
+问题 = "https://github.com/matrixnio/ComfyUI-PromptSyntaxHighlight/issues"
 
 [tool.comfy]
 PublisherId = "matrixnio"
-DisplayName = "Prompt Syntax Highlight"
-Icon = ""
+显示名称 = "提示语法高亮"
+图标 = 
 requires-comfyui = ">=0.3.0"
 
-[build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+[构建系统]
+需要 = ["setuptools"]
+构建后端 = "setuptools.build_meta"
 
 [tool.setuptools]
-# JavaScript-only extension: there is no Python package to build.
-packages = []
+# 仅限 JavaScript 的扩展：没有可构建的 Python 包。
+包[]
